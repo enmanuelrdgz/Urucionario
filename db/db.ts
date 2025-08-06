@@ -27,7 +27,7 @@ export async function saveLevel(level: Level): Promise<Level> {
     }
   });
 
-  console.log(`Nivel ${level.id} guardado en la base de datos.`);
+  await db.closeAsync();
   return level;
 }
 

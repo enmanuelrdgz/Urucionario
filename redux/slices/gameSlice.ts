@@ -40,7 +40,7 @@ const gameSlice = createSlice({
 
         // Solo comparar si ya se ingresaron todas las letras
         if (state.currentGuessLength === state.targetWordLength) {
-          state.match = JSON.stringify(state.currentGuessArray) != JSON.stringify(state.targetWordArray);
+          state.match = JSON.stringify(state.currentGuessArray) == JSON.stringify(state.targetWordArray);
         }
       }
     },
