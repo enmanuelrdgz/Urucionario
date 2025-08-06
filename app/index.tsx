@@ -2,7 +2,7 @@ import LevelList from '@/components/home/LevelList';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { startGameThunk } from '@/redux/slices/gameSlice';
 import { useRouter } from 'expo-router';
-import { ImageBackground, StatusBar, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { StatusBar, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 export default function HomeScreen() {
 
@@ -22,17 +22,14 @@ export default function HomeScreen() {
   const handlePlayButton = () => {
       if(levels[selectedLevel].unGessedWords.length > 0) {
         dispatch(startGameThunk(selectedLevel));
-        router.push("./home/game")
+        router.push("/game")
       }
   }
 
   return (
     <>
       <StatusBar barStyle="light-content" backgroundColor="transparent" translucent />
-      <ImageBackground 
-        source={require('@/assets/images/background.png')} 
-        style={styles.backgroundImage}
-      >        
+     
         <View style={styles.container}>
           
           {/* Level Selection Section */}
@@ -60,7 +57,6 @@ export default function HomeScreen() {
             </TouchableOpacity>
           </View>
         </View>
-      </ImageBackground>
     </>
   );
 }

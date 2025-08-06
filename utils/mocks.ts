@@ -3,7 +3,7 @@ import { Level } from "@/domain/types";
 const levels: Level[] = [
   {
     id: 1,
-    name: "ANIMALES DEL BOSQUE",
+    name: "OBJETOS COTIDIANOS",
     image: require("@/assets/images/capibara.png"),
     description: "ADIVINA LOS ANIMALES QUE VIVEN EN EL BOSQUE.",
     guessedWords: [],

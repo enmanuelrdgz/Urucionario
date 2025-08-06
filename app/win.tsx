@@ -1,7 +1,7 @@
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { startGameThunk } from '@/redux/slices/gameSlice';
 import { useRouter } from 'expo-router';
-import { ImageBackground, StatusBar, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { StatusBar, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 export default function NextWordScreen() {
   const router = useRouter();
@@ -11,17 +11,14 @@ export default function NextWordScreen() {
   return (
     <>
       <StatusBar barStyle="light-content" backgroundColor="transparent" translucent />
-      <ImageBackground 
-        source={require('@/assets/images/background.png')} 
-        style={styles.backgroundImage}
-      >        
+    
         <View style={styles.container}>
           <View style={styles.bottomSection}>
             <TouchableOpacity
               style={styles.playButton}
               onPress={() => {
                 dispatch(startGameThunk(selectedLevel))
-                router.push('./game');
+                router.push('/game');
               }}
               activeOpacity={0.8}
             >
@@ -32,7 +29,7 @@ export default function NextWordScreen() {
 
             <TouchableOpacity
               style={styles.playButton}
-              onPress={() => router.replace('./')}
+              onPress={() => router.replace('/')}
               activeOpacity={0.8}
             >
               <View style={styles.playButtonInner}>
@@ -41,7 +38,6 @@ export default function NextWordScreen() {
             </TouchableOpacity>
           </View>
         </View>
-      </ImageBackground>
     </>
   );
 }

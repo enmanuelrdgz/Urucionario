@@ -1,29 +1,15 @@
 import ReduxProvider from '@/redux/ReduxProvider';
-import { Tabs } from 'expo-router';
+import { Slot } from 'expo-router';
+import { ImageBackground } from 'react-native';
 import 'react-native-reanimated';
 
 export default function RootLayout() {
 
   return (
     <ReduxProvider>
-      <Tabs
-        screenOptions={{
-          headerShown: false,
-          tabBarStyle: {
-            display: 'none'
-          }
-        }}
-      >
-        <Tabs.Screen 
-          name="home"
-          options={{
-            headerShown: false,
-            tabBarStyle: {
-              display: 'none'
-            }
-          }}
-        />
-      </Tabs>
+      <ImageBackground source={require('@/assets/images/background.png')} style={{ flex: 1 }}>
+        <Slot/>
+      </ImageBackground>
     </ReduxProvider>
   );
 }

@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { addCharacter, removeCharacter, wordGuessedThunk } from '@/redux/slices/gameSlice';
 import { useRouter } from 'expo-router';
 import { useEffect } from 'react';
-import { ImageBackground, SafeAreaView, StatusBar, StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView, StatusBar, StyleSheet, Text, View } from 'react-native';
 
 export default function GameScreen() {
   const dispatch = useAppDispatch();
@@ -19,7 +19,7 @@ export default function GameScreen() {
   useEffect(() => {
     if(match) {
       dispatch(wordGuessedThunk()) //guarda el data slice y la database
-      setTimeout(() => {router.push("./win")}, 1000) //cambiar a winscreen
+      setTimeout(() => {router.push("/win")}, 1000) //cambiar a winscreen
     }
   }, [match])
 
@@ -34,10 +34,7 @@ export default function GameScreen() {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor="#f8f9fa" />
-            <ImageBackground 
-              source={require('@/assets/images/background.png')} 
-              style={styles.backgroundImage}
-            >    
+
       {/* Header con pista */}
       <View style={styles.header}>
         <Text style={styles.hintText}>{hint}</Text>
@@ -75,7 +72,6 @@ export default function GameScreen() {
 
       {/* Teclado */}
         <Keyboard onLetterPress={onLetterPress} onDeletePress={onDeletePress}/>
-      </ImageBackground>
     </SafeAreaView>
   );
 }
