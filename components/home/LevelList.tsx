@@ -1,12 +1,12 @@
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import { selectLevel } from '@/redux/slices/globalSlice';
+import { selectLevel } from '@/redux/slices/homeSlice';
 import React, { useEffect, useRef, useState } from 'react';
 import { Dimensions, NativeScrollEvent, NativeSyntheticEvent, ScrollView, StyleSheet, Text, View } from 'react-native';
 import LevelIcon from './LevelIcon';
 
 const LevelList = () => {
-  const selectedLevel = useAppSelector(state => state.global.selectedLevel)
-  const levels = useAppSelector(state => state.global.levels)
+  const selectedLevel = useAppSelector(state => state.home.selectedLevel)
+  const levels = useAppSelector(state => state.data.levels)
   const [setselectedLevelPosition, setsetselectedLevelPosition] = useState(0);
   const scrollViewRef = useRef<ScrollView>(null);
   const { width: screenWidth } = Dimensions.get('window');
@@ -14,7 +14,7 @@ const LevelList = () => {
   
   // Configuración de dimensiones ajustada para el nuevo diseño
   const levelWidth = 140;
-  const levelSpacing = 24;
+  const levelSpacing = 70;
   const sideOffset = (screenWidth - levelWidth) / 2;
 
   useEffect(() => {
@@ -35,7 +35,7 @@ const LevelList = () => {
     const clampedIndex = Math.max(0, Math.min(newIndex, levels.length - 1));
     if (clampedIndex !== setselectedLevelPosition) {
       setsetselectedLevelPosition(clampedIndex);
-      dispatch(selectLevel(levels[clampedIndex]))
+      dispatch(selectLevel(levels[clampedIndex].id))
     }
   };
 
@@ -51,7 +51,7 @@ const LevelList = () => {
       animated: true
     });
     setsetselectedLevelPosition(clampedIndex);
-      dispatch(selectLevel(levels[clampedIndex]))
+      dispatch(selectLevel(levels[clampedIndex].id))
   };
 
   // Verificar que hay niveles antes de renderizar

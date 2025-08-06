@@ -1,11 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
+import dataReducer from './slices/dataSlice';
 import gameReducer from "./slices/gameSlice";
-import globalReducer from './slices/globalSlice';
+import homeReducer from "./slices/homeSlice";
 
 export const store = configureStore({
   reducer: {
-    global: globalReducer,
-    game: gameReducer
+    data: dataReducer,
+    game: gameReducer,
+    home: homeReducer
   },
 });
 

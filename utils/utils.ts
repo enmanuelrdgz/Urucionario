@@ -1,4 +1,4 @@
-import { Level } from "@/types/types";
+import { Level } from "@/domain/types";
 
 export function getTotalWords(level: Level): number {
     return 0

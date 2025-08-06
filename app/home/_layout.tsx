@@ -9,8 +9,8 @@ export default function TabLayout() {
       }}
     >
       <Stack.Screen name="index" />
-      <Stack.Screen name="game" />
-      <Stack.Screen name="win" />
+      <Stack.Screen name="game/index" />
+      <Stack.Screen name="win/index" />
     </Stack>
   );
 }

@@ -3,15 +3,18 @@ import { Animated, StyleSheet, Text, TouchableOpacity } from "react-native";
 
 type Props = {
   letter: string,
-  win: boolean
+  correctMatch: boolean,
+  wrongMatch: boolean
 }
 
-const LetterBox = ({letter, win}: Props) => {
+
+// precondicion: correct match y wrong match no pueden ser true simultaneamente
+const LetterBox = ({letter, correctMatch, wrongMatch}: Props) => {
   const scaleAnim = useRef(new Animated.Value(1)).current;
   const rotateAnim = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
-    if (win) {
+    if (correctMatch) {
       // Animación de éxito - escala y rotación
       Animated.sequence([
         Animated.parallel([
@@ -40,7 +43,7 @@ const LetterBox = ({letter, win}: Props) => {
         ]),
       ]).start();
     }
-  }, [win, scaleAnim, rotateAnim]);
+  }, [correctMatch, scaleAnim, rotateAnim]);
 
   const handlePress = () => {
     // Animación al tocar la caja
@@ -64,8 +67,8 @@ const LetterBox = ({letter, win}: Props) => {
   });
 
   const isEmpty = !letter || letter === '';
-  const boxStyle = win ? styles.winBox : (isEmpty ? styles.emptyBox : styles.filledBox);
-  const textStyle = win ? styles.winText : (isEmpty ? styles.emptyText : styles.filledText);
+  const boxStyle = correctMatch ? styles.winBox : (isEmpty ? styles.emptyBox : styles.filledBox);
+  const textStyle = correctMatch ? styles.winText : (isEmpty ? styles.emptyText : styles.filledText);
 
   return (
     <TouchableOpacity onPress={handlePress} activeOpacity={0.8}>

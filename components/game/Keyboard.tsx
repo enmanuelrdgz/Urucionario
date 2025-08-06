@@ -1,5 +1,5 @@
 import { StyleSheet, View } from "react-native"
-import DeleteKey from "./DeleteKey"
+import DeleteKey from "../home/DeleteKey"
 import LetterKey from "./LetterKey"
 
 type Props = {

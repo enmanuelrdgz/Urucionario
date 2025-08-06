@@ -1,25 +1,27 @@
-import Keyboard from '@/components/Keyboard';
-import LetterBox from '@/components/LetterBox';
+import Keyboard from '@/components/game/Keyboard';
+import LetterBox from '@/components/game/LetterBox';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import { addCharacter, removeCharacter } from '@/redux/slices/gameSlice';
+import { addCharacter, removeCharacter, wordGuessedThunk } from '@/redux/slices/gameSlice';
 import { useRouter } from 'expo-router';
 import { useEffect } from 'react';
 import { ImageBackground, SafeAreaView, StatusBar, StyleSheet, Text, View } from 'react-native';
 
 export default function GameScreen() {
   const dispatch = useAppDispatch();
-  const correcntMatch = useAppSelector((state) => state.game.correctMatch)
-  const wrongMatch = useAppSelector((state) => state.game.wrongMatch)
-  const targetWord = useAppSelector((state) => state.game.targetWord)
-    const hint = useAppSelector((state) => state.game.hint)
-  const currentGuess = useAppSelector((state) => state.game.currentGuess)
+  const match = useAppSelector((state) => state.game.match)
+  const targetWordArray = useAppSelector((state) => state.game.targetWordArray)
+  const targetWordLength = useAppSelector((state) => state.game.targetWordLength);
+  const currentGuessLength = useAppSelector((state) => state.game.currentGuessLength)
+  const hint = useAppSelector((state) => state.game.hint)
+  const currentGuessArray = useAppSelector((state) => state.game.currentGuessArray)
   const router = useRouter()
 
   useEffect(() => {
-    if(correcntMatch) {
-      setTimeout(() => {router.push("./home/win")}, 1000) // esto debe ser asincrono
+    if(match) {
+      dispatch(wordGuessedThunk()) //guarda el data slice y la database
+      setTimeout(() => {router.push("./win")}, 1000) //cambiar a winscreen
     }
-  }, [correcntMatch])
+  }, [match])
 
   const onLetterPress = (char: string) => {
     dispatch(addCharacter(char))
@@ -27,17 +29,6 @@ export default function GameScreen() {
 
   const onDeletePress = () => {
     dispatch(removeCharacter())
-  }
-
-  if(targetWord == null || currentGuess == null) {
-    return (
-      <SafeAreaView style={styles.errorContainer}>
-        <View style={styles.errorContent}>
-          <Text style={styles.errorText}>⚠️ Error cargando el juego</Text>
-          <Text style={styles.errorSubtext}>Por favor, reinicia la aplicación</Text>
-        </View>
-      </SafeAreaView>
-    )
   }
 
   return (
@@ -54,25 +45,28 @@ export default function GameScreen() {
 
       {/* Área de juego principal */}
       <View style={styles.gameArea}>
+
+        {/* Letter Boxes */}
         <View style={styles.wordContainer}>
           {    
-          targetWord.map((letter, index) => (
+          targetWordArray.map((_, index: number) => (
             <LetterBox 
               key={index} 
-              letter={currentGuess[index]} 
-              win={correcntMatch}
+              letter={currentGuessArray[index]} 
+              correctMatch={match && targetWordLength == currentGuessLength}
+              wrongMatch={!match && targetWordLength == currentGuessLength}
             />
           ))}
         </View>
 
         {/* Indicador de estado */}
-        {wrongMatch && (
+        {!match && (currentGuessLength == targetWordLength) && (
           <View style={styles.statusContainer}>
             <Text style={styles.wrongText}>❌ Palabra incorrecta</Text>
           </View>
         )}
 
-        {correcntMatch && (
+        {match && (currentGuessLength == targetWordLength) && (
           <View style={styles.statusContainer}>
             <Text style={styles.correctText}>🎉 ¡Correcto!</Text>
           </View>

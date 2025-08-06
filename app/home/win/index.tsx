@@ -1,31 +1,13 @@
-import LevelList from '@/components/home/LevelList';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { startGameThunk } from '@/redux/slices/gameSlice';
 import { useRouter } from 'expo-router';
 import { ImageBackground, StatusBar, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-export default function HomeScreen() {
-
-  // hooks
+export default function NextWordScreen() {
+  const router = useRouter();
   const dispatch = useAppDispatch();
-  const router = useRouter()
-
-  // redux state
-  const levels = useAppSelector(state => state.data.levels)
-  const selectedLevel = useAppSelector(state => state.home.selectedLevel)
+  const selectedLevel = useAppSelector(state => state.home.selectedLevel);
   
-  // function to handle play button click
-  // It checks if there are unguessed words in the selected level
-  // If there are, it dispatches the startGameThunk and navigates to the game
-  // screen
-  // If there are no unguessed words, it does nothing
-  const handlePlayButton = () => {
-      if(levels[selectedLevel].unGessedWords.length > 0) {
-        dispatch(startGameThunk(selectedLevel));
-        router.push("./home/game")
-      }
-  }
-
   return (
     <>
       <StatusBar barStyle="light-content" backgroundColor="transparent" translucent />
@@ -34,28 +16,27 @@ export default function HomeScreen() {
         style={styles.backgroundImage}
       >        
         <View style={styles.container}>
-          
-          {/* Level Selection Section */}
-          <View style={styles.levelSection}>
-            <LevelList/>
-          </View>
-
-          {/* Bottom Section with Play Button */}
           <View style={styles.bottomSection}>
-            {/* Play Button */}
             <TouchableOpacity
-              style={[
-                styles.playButton,
-              ]}
-              onPress={handlePlayButton}
+              style={styles.playButton}
+              onPress={() => {
+                dispatch(startGameThunk(selectedLevel))
+                router.push('./game');
+              }}
               activeOpacity={0.8}
             >
               <View style={styles.playButtonInner}>
-                <Text style={[
-                  styles.playButtonText,
-                ]}>
-                  Jugar
-                </Text>
+                <Text style={styles.playButtonText}>Siguiente Palabra</Text>
+              </View>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={styles.playButton}
+              onPress={() => router.replace('./')}
+              activeOpacity={0.8}
+            >
+              <View style={styles.playButtonInner}>
+                <Text style={styles.playButtonText}>Volver al Menú</Text>
               </View>
             </TouchableOpacity>
           </View>
@@ -75,9 +56,6 @@ const styles = StyleSheet.create({
     paddingTop: 60,
     paddingHorizontal: 20,
     paddingBottom: 40,
-  },
-  levelSection: {
-    flex: 1,
     justifyContent: 'center',
   },
   bottomSection: {
@@ -102,7 +80,6 @@ const styles = StyleSheet.create({
     borderColor: '#45A049',
     transform: [{ scale: 1 }],
   },
-
   playButtonInner: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -116,9 +93,5 @@ const styles = StyleSheet.create({
     textShadowColor: 'rgba(0, 0, 0, 0.5)',
     textShadowOffset: { width: 1, height: 1 },
     textShadowRadius: 2,
-  },
-  playButtonIcon: {
-    fontSize: 18,
-    marginLeft: 10,
   },
 });

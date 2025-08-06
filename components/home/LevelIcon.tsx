@@ -1,5 +1,4 @@
-import { Level } from "@/types/types"
-import { getGessedWords, getTotalWords } from "@/utils/utils"
+import { Level } from "@/domain/types"
 import { Image, StyleSheet, Text, View } from "react-native"
 
 type Prop = {
@@ -7,8 +6,8 @@ type Prop = {
 }
 
 const LevelIcon = ({level}: Prop) => {
-  const guessedWords = getGessedWords(level)
-  const totalWords = getTotalWords(level)
+  const guessedWords = level.guessedWords.length;
+  const totalWords = level.guessedWords.length + level.unGessedWords.length;
   const progress = totalWords > 0 ? (guessedWords / totalWords) * 100 : 0
   const isCompleted = progress === 100
 
@@ -30,7 +29,7 @@ const LevelIcon = ({level}: Prop) => {
         </Text>
       </View>
 
-      {/* Descripción flotante */}
+      {/* Descripción */}
       <View style={styles.descriptionContainer}>
         <Text style={styles.levelDescription} numberOfLines={2}>
           {level.description}
@@ -118,10 +117,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 6,
     justifyContent: "center",
-    borderRadius: 20,
+    borderRadius: 50,
     marginBottom: 6,
-    width: 110,
-    height: 45,
+    width: 190,
+    height: 75,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -153,7 +152,7 @@ const styles = StyleSheet.create({
   descriptionContainer: {
     borderRadius: 12,
     marginBottom: 8,
-    maxWidth: 150,
+    width: 200,
     justifyContent: "center",
   },
   levelDescription: {
