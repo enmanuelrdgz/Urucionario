@@ -1,7 +1,7 @@
 // components/ReduxProvider.tsx
 import React, { ReactNode, useEffect } from 'react';
 import { Provider } from 'react-redux';
-import { fetchDataThunk } from './slices/dataSlice';
+import { initGameThunk } from './slices/dataSlice';
 import { store } from './store';
 
 
@@ -12,7 +12,8 @@ interface Props {
 const ReduxProvider = ({children }: Props) => {
 
   useEffect(() => {
-    store.dispatch(fetchDataThunk());
+    debugger;
+    store.dispatch(initGameThunk());
   }, []);
 
   return (

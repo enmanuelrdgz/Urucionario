@@ -1,116 +1,86 @@
-import { Level, Word } from '@/domain/types';
-import mockLevels from '@/utils/mocks';
+import words from '@/src/assets/words.json';
+import { Category, Word } from '@/src/domain/types';
 import * as SQLite from 'expo-sqlite';
 
-/**
-  * Guarda un nivel en la base de datos.
- */
-export async function saveLevel(level: Level): Promise<Level> {
-  const db = await SQLite.openDatabaseAsync('mydb.db');
 
-  await db.withTransactionAsync(async () => {
-    await db.runAsync(`DELETE FROM GuessedWords WHERE level_id = ?`, [level.id]);
-    await db.runAsync(`DELETE FROM UnguessedWords WHERE level_id = ?`, [level.id]);
+// esta funcion verifica si existe la tabla Category
+// en caso de que no exista, crea las tablas Category y Wordm
+// y llena las tablas con la informacion del archivo words.json
 
-    for (const word of level.guessedWords) {
-      await db.runAsync(
-        `INSERT INTO GuessedWords (id, word, hint, level_id) VALUES (?, ?, ?, ?)`,
-        [word.id, word.word, word.hint, level.id]
+export function initDB(): void{
+  debugger
+  const db = SQLite.openDatabaseSync('v.db');
+  db.runSync('DROP TABLE IF EXISTS Category');
+  db.runSync('DROP TABLE IF EXISTS Word');
+  const tableExists = db.getFirstSync<{ name: string }>(
+    "SELECT name FROM sqlite_master WHERE type='table' AND name='Category'");
+  if (tableExists == null) {
+    db.execSync(`
+      CREATE TABLE IF NOT EXISTS Category (
+        id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+        name TEXT NOT NULL UNIQUE,
+        description TEXT NOT NULL
       );
-    }
-
-    for (const word of level.unGessedWords) {
-      await db.runAsync(
-        `INSERT INTO UnguessedWords (id, word, hint, level_id) VALUES (?, ?, ?, ?)`,
-        [word.id, word.word, word.hint, level.id]
+      CREATE TABLE IF NOT EXISTS Word (
+        id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+        word TEXT NOT NULL UNIQUE,
+        hint TEXT NOT NULL,
+        isGuessed BOOLEAN NOT NULL DEFAULT 0,
+        category_id INTEGER NOT NULL,
+        FOREIGN KEY (category_id) REFERENCES Category(id)
       );
-    }
-  });
+    `);
 
-  await db.closeAsync();
-  return level;
+    words.forEach((word) => {
+      db.runSync(
+        'INSERT OR IGNORE INTO Category (name, description) VALUES (?, ?)',[word.CATEGORY, word.DESCRIPTION]
+      );
+      const categoryId = db.getFirstSync<{ id: number }>(
+        'SELECT id FROM Category WHERE name = ?',
+        [word.CATEGORY]
+      );
+      if (categoryId) {
+        db.runSync(
+          'INSERT OR IGNORE INTO Word (word, hint, isGuessed, category_id) VALUES (?, ?, ?, ?)',
+          [word.WORD, word.HINT, 0, categoryId.id]
+        );
+      }
+    })
+  }
+  db.closeSync();//
 }
 
-export async function fetchLevels(): Promise<Level[]> {
-  const db = await SQLite.openDatabaseAsync('mydb.db');
+// esta funcion obtiene todas las categorias de la base de datos
+// y las devuelve como un array de objetos Category
+export function getCategories(): Category[] {
+  const db = SQLite.openDatabaseSync('v.db');
+ 
+  const categoriesRows = db.getAllSync<Category>('SELECT * FROM Category');
+  const categories: Category[] = [];
 
-  // Verificar si la tabla Level existe
-  const tableCheck = await db.getAllAsync<{ name: string }>(
-    "SELECT name FROM sqlite_master WHERE type='table' AND name='Level'"
+  for (const row of categoriesRows) {
+    const words = db.getAllSync<Word>(
+      'SELECT id, word, hint, isGuessed FROM Word WHERE category_id = ?',
+      [row.id]
+    );
+    categories.push({
+      ...row,
+      words,
+    });
+  }//d
+
+  db.closeSync();
+  return categories;
+}
+
+// esta funcion actualiza el estado de una Word de isGuessed: false a isGuessed: true
+export function updateWord(targetWordId: number): void {
+  const db = SQLite.openDatabaseSync('v.db');
+  
+  db.runSync(
+    'UPDATE Word SET isGuessed = ? WHERE id = ?',
+    [1, targetWordId]
   );
 
-  // Si no existe la tabla, crear estructura e insertar datos mock
-  if (tableCheck.length === 0) {
-    await db.withTransactionAsync(async () => {
-      await db.execAsync(`
-        CREATE TABLE IF NOT EXISTS Level (
-          id INTEGER PRIMARY KEY,
-          name TEXT,
-          image INTEGER,
-          description TEXT
-        );
-      `);
-      await db.execAsync(`
-        CREATE TABLE IF NOT EXISTS GuessedWords (
-          id INTEGER PRIMARY KEY,
-          word TEXT,
-          hint TEXT,
-          level_id INTEGER
-        );
-      `);
-      await db.execAsync(`
-        CREATE TABLE IF NOT EXISTS UnguessedWords (
-          id INTEGER PRIMARY KEY,
-          word TEXT,
-          hint TEXT,
-          level_id INTEGER
-        );
-      `);
-
-      for (const level of mockLevels) {
-        await db.runAsync(
-          'INSERT INTO Level (id, name, image, description) VALUES (?, ?, ?, ?)',
-          [level.id, level.name, level.image, level.description]
-        );
-
-        for (const word of level.guessedWords) {
-          await db.runAsync(
-            'INSERT INTO GuessedWords (id, word, hint, level_id) VALUES (?, ?, ?, ?)',
-            [word.id, word.word, word.hint, level.id]
-          );
-        }
-
-        for (const word of level.unGessedWords) {
-          await db.runAsync(
-            'INSERT INTO UnguessedWords (id, word, hint, level_id) VALUES (?, ?, ?, ?)',
-            [word.id, word.word, word.hint, level.id]
-          );
-        }
-      }
-    });
-  }
-
-  // Leer los niveles
-  const levelsRows = await db.getAllAsync<Level>('SELECT * FROM Level');
-  const levels: Level[] = [];
-
-  for (const row of levelsRows) {
-    const guessedWords = await db.getAllAsync<Word>(
-      'SELECT id, word, hint FROM GuessedWords WHERE level_id = ?',
-      [row.id]
-    );
-
-    const unguessedWords = await db.getAllAsync<Word>(
-      'SELECT id, word, hint FROM UnguessedWords WHERE level_id = ?',
-      [row.id]
-    );
-
-    levels.push({
-      ...row,
-      guessedWords,
-      unGessedWords: unguessedWords,
-    });
-  }
-
-  return levels;
+  db.closeSync();
 }

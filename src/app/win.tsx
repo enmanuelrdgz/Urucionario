@@ -1,12 +1,29 @@
-import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import { startGameThunk } from '@/redux/slices/gameSlice';
-import { useRouter } from 'expo-router';
-import { StatusBar, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { useAppDispatch, useAppSelector } from '@/src/redux/hooks';
+import { startGameThunk } from '@/src/redux/slices/gameSlice';
+import { useFocusEffect, useRouter } from 'expo-router';
+import { useCallback } from 'react';
+import { BackHandler, StatusBar, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 export default function NextWordScreen() {
   const router = useRouter();
   const dispatch = useAppDispatch();
-  const selectedLevel = useAppSelector(state => state.home.selectedLevel);
+  const selectedLevel = useAppSelector(state => state.home.selectedCategory);
+  
+   useFocusEffect(
+    useCallback(() => {
+      const onBackPress = () => {
+        router.replace('/'); // Redirige a la pantalla de inicio
+        return true; // Evita el comportamiento por defecto
+      };
+
+      // Configurar el listener para el botón físico (Android)
+      const subscription = BackHandler.addEventListener('hardwareBackPress', onBackPress);
+
+      return () => {
+        subscription.remove();
+      };
+    }, [router])
+  );
   
   return (
     <>

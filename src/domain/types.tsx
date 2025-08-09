@@ -2,13 +2,12 @@ export type Word = {
     id: number,
     word: string,
     hint: string,
+    isGuessed: number,
 }
 
-export type Level = {
+export type Category = {
     id: number,
     name: string,
-    image: number
     description: string
-    guessedWords: Word[],
-    unGessedWords: Word[]
+    words: Word[]
 }

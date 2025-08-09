@@ -1,0 +1,84 @@
+[
+  {
+    "WORD": "AEREOS",
+    "HINT": "Gabinetes que se encuentran en la parte superior de las cocinas, utilizados para almacenar utensilios y alimentos.",
+    "CATEGORY": "HOGAR",
+    "DESCRIPTION": ""
+  },
+  {
+    "WORD": "AFANAR",
+    "HINT": "Acción de tomar algo que no te pertenece, generalmente de manera ilegal o sin permiso.",
+    "CATEGORY": "VERBOS",
+    "DESCRIPTION": ""
+  },
+  {
+    "WORD": "AL PEDO",
+    "HINT": "Expresión utilizada para describir una situación en la que no se está haciendo nada productivo o se está perdiendo el tiempo.",
+    "CATEGORY": "EXPRESIONES",
+    "DESCRIPTION": ""
+  },
+  {
+    "WORD": "BAGAYO",
+    "HINT": "Término utilizado para referirse a alguien que se dedica al contrabando, especialmente de productos que cruzan fronteras.",
+    "CATEGORY": "PERSONAS",
+    "DESCRIPTION": ""
+  },
+  {
+    "WORD": "BANANA",
+    "HINT": "Término coloquial para referirse a alguien que actúa de manera poco inteligente o ingenua.",
+    "CATEGORY": "PERSONAS",
+    "DESCRIPTION": ""
+  },
+  {
+    "WORD": "BANCAR",
+    "HINT": "Expresión que significa apoyar a alguien en una situación difícil o esperar a que alguien llegue.",
+    "CATEGORY": "EXPRESIONES",
+    "DESCRIPTION": ""
+  },
+  {
+    "WORD": "Término utilizado para referirse a un grupo de amigos o conocidos que suelen reunirse y compartir actividades.",
+    "HINT": "Grupo de amigos",
+    "CATEGORY": "PERSONAS",
+    "DESCRIPTION": ""
+  },
+  {
+    "WORD": "BASUREAR",
+    "HINT": "Acción de hablar mal de alguien o tratarlo con desdén, generalmente de manera burlona o despectiva.",
+    "CATEGORY": "VERBOS",
+    "DESCRIPTION": ""
+  },
+  {
+    "WORD": "BICHICOME",
+    "HINT": "Término utilizado para referirse a una persona sin hogar o que vive en condiciones precarias en la calle.",
+    "CATEGORY": "CIUDAD Y TRABAJO",
+    "DESCRIPTION": ""
+  },
+  {
+    "WORD": "BIFE",
+    "HINT": "Bofetada, cachetada",
+    "CATEGORY": "EXPRESIONES",
+        "DESCRIPTION": ""
+
+  },
+  {
+    "WORD": "BIROME",
+    "HINT": "bolígrafo, lapicera",
+    "CATEGORY": "OBJETOS",
+        "DESCRIPTION": ""
+
+  },
+  {
+    "WORD": "BIRRA",
+    "HINT": "Cerveza",
+    "CATEGORY": "COMIDA",
+        "DESCRIPTION": ""
+
+  },
+  {
+    "WORD": "BO",
+    "HINT": "Palabra por excelencia utilizada por los uruguayos para llamar a otro uruguayo",
+    "CATEGORY": "EXPRESIONES",
+        "DESCRIPTION": ""
+
+  }
+]

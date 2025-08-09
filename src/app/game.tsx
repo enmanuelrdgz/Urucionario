@@ -1,10 +1,10 @@
-import Keyboard from '@/components/game/Keyboard';
-import LetterBox from '@/components/game/LetterBox';
-import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import { addCharacter, removeCharacter, wordGuessedThunk } from '@/redux/slices/gameSlice';
-import { useRouter } from 'expo-router';
-import { useEffect } from 'react';
-import { SafeAreaView, StatusBar, StyleSheet, Text, View } from 'react-native';
+import Keyboard from '@/src/components/game/Keyboard';
+import LetterBox from '@/src/components/game/LetterBox';
+import { useAppDispatch, useAppSelector } from '@/src/redux/hooks';
+import { addCharacter, removeCharacter, wordGuessedThunk } from '@/src/redux/slices/gameSlice';
+import { useFocusEffect, useRouter } from 'expo-router';
+import { useCallback, useEffect } from 'react';
+import { BackHandler, SafeAreaView, StatusBar, StyleSheet, Text, View } from 'react-native';
 
 export default function GameScreen() {
   const dispatch = useAppDispatch();
@@ -15,6 +15,23 @@ export default function GameScreen() {
   const hint = useAppSelector((state) => state.game.hint)
   const currentGuessArray = useAppSelector((state) => state.game.currentGuessArray)
   const router = useRouter()
+
+    // 🔴 Sobrescribe el botón "Atrás" para redirigir a "/index"
+  useFocusEffect(
+    useCallback(() => {
+      const onBackPress = () => {
+        router.replace('/'); // Redirige a la pantalla de inicio
+        return true; // Evita el comportamiento por defecto
+      };
+
+      // Configura el listener para el botón físico (Android)
+      const backHandler = BackHandler.addEventListener('hardwareBackPress', onBackPress);
+
+      return () => {
+        backHandler.remove();
+      };
+    }, [router])
+  );
 
   useEffect(() => {
     if(match) {

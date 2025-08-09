@@ -2,11 +2,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface HomeState {
-    selectedLevel: number
+    selectedCategory: number
 }
 
 const initialState: HomeState = {
-  selectedLevel: 1
+  selectedCategory: 1
 };
 
 const homeSlice = createSlice({
@@ -14,7 +14,7 @@ const homeSlice = createSlice({
   initialState: initialState,
   reducers: {
     selectLevel: (state, action:PayloadAction<number>) => {
-        state.selectedLevel = action.payload
+        state.selectedCategory = action.payload
     }
   },
 });

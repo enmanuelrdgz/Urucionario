@@ -1,6 +1,6 @@
-import LevelList from '@/components/home/LevelList';
-import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import { startGameThunk } from '@/redux/slices/gameSlice';
+import LevelList from '@/src/components/home/LevelList';
+import { useAppDispatch, useAppSelector } from '@/src/redux/hooks';
+import { startGameThunk } from '@/src/redux/slices/gameSlice';
 import { useRouter } from 'expo-router';
 import { StatusBar, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
@@ -11,8 +11,8 @@ export default function HomeScreen() {
   const router = useRouter()
 
   // redux state
-  const levels = useAppSelector(state => state.data.levels)
-  const selectedLevel = useAppSelector(state => state.home.selectedLevel)
+  const levels = useAppSelector(state => state.data.categories)
+  const selectedCategory = useAppSelector(state => state.home.selectedCategory)
   
   // function to handle play button click
   // It checks if there are unguessed words in the selected level
@@ -20,10 +20,8 @@ export default function HomeScreen() {
   // screen
   // If there are no unguessed words, it does nothing
   const handlePlayButton = () => {
-      if(levels[selectedLevel].unGessedWords.length > 0) {
-        dispatch(startGameThunk(selectedLevel));
-        router.push("/game")
-      }
+    dispatch(startGameThunk(selectedCategory));
+    router.push("/game")   
   }
 
   return (

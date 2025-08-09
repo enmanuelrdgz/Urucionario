@@ -1,13 +1,13 @@
-import { Level } from "@/domain/types"
+import { Category } from "@/src/domain/types"
 import { Image, StyleSheet, Text, View } from "react-native"
 
 type Prop = {
-  level: Level
+  category: Category
 }
 
-const LevelIcon = ({level}: Prop) => {
-  const guessedWords = level.guessedWords.length;
-  const totalWords = level.guessedWords.length + level.unGessedWords.length;
+const CategoryIcon = ({category}: Prop) => {
+  const guessedWords = category.words.filter(w => w.isGuessed).length;
+  const totalWords = category.words.length;
   const progress = totalWords > 0 ? (guessedWords / totalWords) * 100 : 0
   const isCompleted = progress === 100
 
@@ -16,23 +16,23 @@ const LevelIcon = ({level}: Prop) => {
       {/* Imagen flotante del nivel */}
       <View style={[styles.imageContainer]}>
         <Image 
-          source={level.image}
-          style={styles.levelImage}
+          source={require(`@/src/assets/images/capibara.png`)}
+          style={styles.categoryImage}
           resizeMode="cover"
         />
       </View>
 
       {/* Nombre del nivel */}
       <View style={[styles.nameContainer]}>
-        <Text style={[styles.levelName]}>
-          {level.name}
+        <Text style={[styles.categoryName]}>
+          {category.name}
         </Text>
       </View>
 
       {/* Descripción */}
       <View style={styles.descriptionContainer}>
-        <Text style={styles.levelDescription} numberOfLines={2}>
-          {level.description}
+        <Text style={styles.categoryDescription} numberOfLines={2}>
+          {category.description}
         </Text>
       </View>
 
@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
     shadowRadius: 12,
     elevation: 12,
   },
-  levelImage: {
+  categoryImage: {
     width: 150,
     height: 150,
   },
@@ -135,7 +135,7 @@ const styles = StyleSheet.create({
   completedNameContainer: {
     backgroundColor: '#4ECDC4',
   },
-  levelName: {
+  categoryName: {
     fontSize: 16,
     fontWeight: 'bold',
     color: '#FFFFFF',
@@ -144,7 +144,7 @@ const styles = StyleSheet.create({
     textShadowOffset: { width: 1, height: 1 },
     textShadowRadius: 2,
   },
-  completedLevelName: {
+  completedcategoryName: {
     color: '#FFFFFF',
   },
 
@@ -155,7 +155,7 @@ const styles = StyleSheet.create({
     width: 200,
     justifyContent: "center",
   },
-  levelDescription: {
+  categoryDescription: {
     fontSize: 12,
     color: '#ffffffff',
     textAlign: 'center',
@@ -248,4 +248,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default LevelIcon 
+export default CategoryIcon 
