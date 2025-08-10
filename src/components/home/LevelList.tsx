@@ -1,61 +1,85 @@
 import { useAppDispatch, useAppSelector } from '@/src/redux/hooks';
 import { selectLevel } from '@/src/redux/slices/homeSlice';
 import React, { useEffect, useRef, useState } from 'react';
-import { Dimensions, NativeScrollEvent, NativeSyntheticEvent, ScrollView, StyleSheet, Text, View } from 'react-native';
-import LevelIcon from './LevelIcon';
+import {
+  Animated,
+  Dimensions,
+  NativeScrollEvent,
+  NativeSyntheticEvent,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View
+} from 'react-native';
+import CategoryIcon from './LevelIcon';
 
-const LevelList = () => {
-  const selectedCategory = useAppSelector(state => state.home.selectedCategory)
-  const levels = useAppSelector(state => state.data.categories)
-  const [setselectedLevelPosition, setsetselectedLevelPosition] = useState(0);
+const CategoryList = () => {
+
+  // un array de obtetos de tipo Category
+  const categories = useAppSelector(state => state.data.categories);
+  const [selectedCategoryIndex, setSelectedCategoryIndex] = useState(0);
   const scrollViewRef = useRef<ScrollView>(null);
   const { width: screenWidth } = Dimensions.get('window');
-  const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
   
-  // Configuración de dimensiones ajustada para el nuevo diseño
-  const levelWidth = 140;
-  const levelSpacing = 70;
-  const sideOffset = (screenWidth - levelWidth) / 2;
+  // Configuración de dimensiones
+  const levelWidth = screenWidth;
+  const levelSpacing = 0;
+  const itemSize = levelWidth + levelSpacing;
+  
+  // Valor animado para trackear scroll
+  const scrollX = useRef(new Animated.Value(0)).current;
+  // Bandera para evitar loops
+  const isScrollingProgramatically = useRef(false);
 
   useEffect(() => {
-    // Centrar el primer nivel al montar el componente
-    if (scrollViewRef.current && levels.length > 0) {
-      const scrollPosition = setselectedLevelPosition * (levelWidth + levelSpacing);
+    if (scrollViewRef.current && categories.length > 0 && !isScrollingProgramatically.current) {
+      isScrollingProgramatically.current = true;
+      const scrollPosition = selectedCategoryIndex * itemSize;
       scrollViewRef.current.scrollTo({
         x: scrollPosition,
-        animated: false
+        animated: true,
       });
+      
+      // Resetear bandera después de la animación
+      setTimeout(() => {
+        isScrollingProgramatically.current = false;
+      }, 300);
     }
-  }, [setselectedLevelPosition, levelWidth, levelSpacing, levels.length]);
+  }, [selectedCategoryIndex, itemSize, categories.length]);
 
-  // esta funcion actualiza el selectedLevelPosition
-  const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
-    const scrollX = event.nativeEvent.contentOffset.x;
-    const newIndex = Math.round(scrollX / (levelWidth + levelSpacing));
-    const clampedIndex = Math.max(0, Math.min(newIndex, levels.length - 1));
-    if (clampedIndex !== setselectedLevelPosition) {
-      setsetselectedLevelPosition(clampedIndex);
-      dispatch(selectLevel(levels[clampedIndex].id))
+  const handleScroll = Animated.event(
+    [{ nativeEvent: { contentOffset: { x: scrollX } }}],
+    {
+      useNativeDriver: false,
+      listener: (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+        if (isScrollingProgramatically.current) return;
+        
+        const scrollXValue = event.nativeEvent.contentOffset.x;
+        const newIndex = Math.round(scrollXValue / itemSize);  // no entiendo este calculo
+        const clampedIndex = Math.max(0, Math.min(newIndex, categories.length - 1)); //esto es paraasegurarse de que el índice esté dentro de los límites del array
+        
+        if (clampedIndex !== selectedCategoryIndex) {
+          setSelectedCategoryIndex(clampedIndex);
+          dispatch(selectLevel(categories[clampedIndex].id));
+        }
+      }
     }
-  };
+  );
 
-  const handleMomentumScrollEnd = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
-    const scrollX = event.nativeEvent.contentOffset.x;
-    const targetIndex = Math.round(scrollX / (levelWidth + levelSpacing));
-    const clampedIndex = Math.max(0, Math.min(targetIndex, levels.length - 1));
+  const handleScrollEnd = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+    // este codigo esta repetido
+    const scrollXValue = event.nativeEvent.contentOffset.x;
+    const newIndex = Math.round(scrollXValue / itemSize); // no entiendo este calculo
+    const clampedIndex = Math.max(0, Math.min(newIndex, categories.length - 1)); //Asegurarse de que el índice esté dentro de los límites del array
     
-    // Asegurar que el nivel quede perfectamente centrado
-    const targetScrollX = clampedIndex * (levelWidth + levelSpacing);
-    scrollViewRef.current?.scrollTo({
-      x: targetScrollX,
-      animated: true
-    });
-    setsetselectedLevelPosition(clampedIndex);
-    dispatch(selectLevel(levels[clampedIndex].id))
+    if (clampedIndex !== selectedCategoryIndex) {
+      setSelectedCategoryIndex(clampedIndex);
+      dispatch(selectLevel(categories[clampedIndex].id));
+    }
   };
 
-  // Verificar que hay niveles antes de renderizar
-  if (!levels || levels.length === 0) {
+  if (!categories || categories.length === 0) {
     return (
       <View>
         <Text style={styles.emptyText}>No hay niveles disponibles</Text>
@@ -64,43 +88,60 @@ const LevelList = () => {
   }
 
   return (
+    <View style={styles.scrollContainer}>
+      <ScrollView
+        ref={scrollViewRef}
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        snapToInterval={itemSize}
+        decelerationRate="fast"
+        snapToAlignment="center"
+        contentContainerStyle={[
+          styles.scrollContent,
+          { paddingHorizontal: 0}
+        ]}
+        onScroll={handleScroll}
+        onMomentumScrollEnd={handleScrollEnd}
+        scrollEventThrottle={16}
+      >
+        {categories.map((level, index) => {
+          const inputRange = [
+            (index - 1) * itemSize,
+            index * itemSize,
+            (index + 1) * itemSize,
+          ];
+          
+          const scale = scrollX.interpolate({
+            inputRange,
+            outputRange: [0.8, 1.1, 0.8],
+            extrapolate: 'clamp',
+          });
+          
+          const opacity = scrollX.interpolate({
+            inputRange,
+            outputRange: [0.5, 1, 0.5],
+            extrapolate: 'clamp',
+          });
 
-      <View style={styles.scrollContainer}>
-        <ScrollView
-          ref={scrollViewRef}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          snapToInterval={levelWidth + levelSpacing}
-          decelerationRate="fast"
-          contentContainerStyle={[
-            styles.scrollContent,
-            {
-              paddingHorizontal: sideOffset,
-            }
-          ]}
-          onScroll={handleScroll}
-          onMomentumScrollEnd={handleMomentumScrollEnd}
-          scrollEventThrottle={16}
-        >
-          {levels.map((level, index) => (
-            <View
+          return (
+            <Animated.View
               key={index}
               style={[
                 styles.levelContainer,
                 {
                   width: levelWidth,
-                  marginRight: index < levels.length - 1 ? levelSpacing : 0,
-                },
-                // Efecto de escala para el nivel seleccionado
-                index === setselectedLevelPosition && styles.selectedLevelContainer
+                  marginRight: index < categories.length - 1 ? levelSpacing : 0,
+                  transform: [{ scale }],
+                  opacity,
+                }
               ]}
             >
-              <LevelIcon category={level} />
-              
-            </View>
-          ))}
-        </ScrollView>
-      </View>
+              <CategoryIcon category={level} />
+            </Animated.View>
+          );
+        })}
+      </ScrollView>
+    </View>
   );
 };
 
@@ -109,11 +150,6 @@ const styles = StyleSheet.create({
     color: '#B0B0C4',
     fontSize: 16,
     fontStyle: 'italic',
-  },
-  activeIndicator: {
-    backgroundColor: '#FFD700',
-    borderColor: '#FFA000',
-    transform: [{ scale: 1.2 }],
   },
   scrollContainer: {
     position: 'relative',
@@ -125,14 +161,7 @@ const styles = StyleSheet.create({
   levelContainer: {
     alignItems: 'center',
     justifyContent: 'center',
-    transform: [{ scale: 0.9 }],
-    opacity: 0.7,
   },
-  selectedLevelContainer: {
-    transform: [{ scale: 1.1 }],
-    opacity: 1,
-  },
+});
 
-})
-
-export default LevelList;
+export default CategoryList;
