@@ -49,7 +49,7 @@ export default function HomeScreen() {
                 <Text style={[
                   styles.playButtonText,
                 ]}>
-                  Jugar
+                  Play
                 </Text>
               </View>
             </TouchableOpacity>

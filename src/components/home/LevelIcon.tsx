@@ -1,30 +1,39 @@
-import { Category } from "@/src/domain/types"
-import { Image, StyleSheet, Text, View } from "react-native"
+import { Category } from "@/src/domain/types";
+import { Image, StyleSheet, Text, View } from "react-native";
+
+// Mapeo de imágenes estáticas
+const categoryImages: Record<string, any> = {
+  NATURE: require('@/src/assets/images/categories/NATURE.png'),
+  PROFESSIONS: require('@/src/assets/images/categories/PROFESSIONS.png'),
+  OBJECTS: require('@/src/assets/images/categories/OBJECTS.png'),
+  FOOD: require('@/src/assets/images/categories/FOOD.png'),
+  ANIMALS: require('@/src/assets/images/categories/ANIMALS.png'),
+};
 
 type Prop = {
   category: Category
 }
 
-const CategoryIcon = ({category}: Prop) => {
+const CategoryIcon = ({ category }: Prop) => {
   const guessedWords = category.words.filter(w => w.isGuessed).length;
   const totalWords = category.words.length;
-  const progress = totalWords > 0 ? (guessedWords / totalWords) * 100 : 0
-  const isCompleted = progress === 100
+  const progress = totalWords > 0 ? (guessedWords / totalWords) * 100 : 0;
+  const isCompleted = progress === 100;
 
   return (
     <View style={styles.container}>
       {/* Imagen flotante del nivel */}
-      <View style={[styles.imageContainer]}>
+      <View style={styles.imageContainer}>
         <Image 
-          source={require(`@/src/assets/images/capibara.png`)}
+          source={categoryImages[category.name]}
           style={styles.categoryImage}
           resizeMode="cover"
         />
       </View>
 
       {/* Nombre del nivel */}
-      <View style={[styles.nameContainer]}>
-        <Text style={[styles.categoryName]}>
+      <View style={styles.nameContainer}>
+        <Text style={styles.categoryName}>
           {category.name}
         </Text>
       </View>
@@ -55,7 +64,7 @@ const CategoryIcon = ({category}: Prop) => {
       {/* Porcentaje flotante */}
       <View style={[styles.percentageContainer, isCompleted && styles.completedPercentageContainer]}>
         <Text style={[styles.percentageText, isCompleted && styles.completedText]}>
-          {Math.round(progress)}% completado
+          {Math.round(progress)}% completed
         </Text>
       </View>
     </View>

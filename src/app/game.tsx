@@ -76,13 +76,13 @@ export default function GameScreen() {
         {/* Indicador de estado */}
         {!match && (currentGuessLength == targetWordLength) && (
           <View style={styles.statusContainer}>
-            <Text style={styles.wrongText}>❌ Palabra incorrecta</Text>
+            <Text style={styles.wrongText}>❌ Wrong Guess!</Text>
           </View>
         )}
 
         {match && (currentGuessLength == targetWordLength) && (
           <View style={styles.statusContainer}>
-            <Text style={styles.correctText}>🎉 ¡Correcto!</Text>
+            <Text style={styles.correctText}>🎉 ¡Correct!</Text>
           </View>
         )}
       </View>

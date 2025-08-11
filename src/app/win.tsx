@@ -40,7 +40,7 @@ export default function NextWordScreen() {
               activeOpacity={0.8}
             >
               <View style={styles.playButtonInner}>
-                <Text style={styles.playButtonText}>Siguiente Palabra</Text>
+                <Text style={styles.playButtonText}>Next Word</Text>
               </View>
             </TouchableOpacity>
 
@@ -50,7 +50,7 @@ export default function NextWordScreen() {
               activeOpacity={0.8}
             >
               <View style={styles.playButtonInner}>
-                <Text style={styles.playButtonText}>Volver al Menú</Text>
+                <Text style={styles.playButtonText}>Back to Menu</Text>
               </View>
             </TouchableOpacity>
           </View>

@@ -1,84 +1,290 @@
 [
   {
-    "WORD": "AEREOS",
-    "HINT": "Gabinetes que se encuentran en la parte superior de las cocinas, utilizados para almacenar utensilios y alimentos.",
-    "CATEGORY": "HOGAR",
-    "DESCRIPTION": ""
+    "WORD": "ELEPHANT",
+    "HINT": "The largest land animal, known for its long trunk and tusks.",
+    "CATEGORY": "ANIMALS",
+    "DESCRIPTION": "Most common animals"
   },
   {
-    "WORD": "AFANAR",
-    "HINT": "Acción de tomar algo que no te pertenece, generalmente de manera ilegal o sin permiso.",
-    "CATEGORY": "VERBOS",
-    "DESCRIPTION": ""
+    "WORD": "LION",
+    "HINT": "Known as the 'king of the jungle'.",
+    "CATEGORY": "ANIMALS",
+    "DESCRIPTION": "Most common animals"
   },
   {
-    "WORD": "AL PEDO",
-    "HINT": "Expresión utilizada para describir una situación en la que no se está haciendo nada productivo o se está perdiendo el tiempo.",
-    "CATEGORY": "EXPRESIONES",
-    "DESCRIPTION": ""
+    "WORD": "DOLPHIN",
+    "HINT": "A highly intelligent marine mammal known for its playful behavior.",
+    "CATEGORY": "ANIMALS",
+    "DESCRIPTION": "Most common animals"
   },
   {
-    "WORD": "BAGAYO",
-    "HINT": "Término utilizado para referirse a alguien que se dedica al contrabando, especialmente de productos que cruzan fronteras.",
-    "CATEGORY": "PERSONAS",
-    "DESCRIPTION": ""
+    "WORD": "KANGAROO",
+    "HINT": "A marsupial from Australia famous for its jumping ability.",
+    "CATEGORY": "ANIMALS",
+    "DESCRIPTION": "Most common animals"
+  },
+  {
+    "WORD": "PENGUIN",
+    "HINT": "A flightless bird that lives in cold climates and swims well.",
+    "CATEGORY": "ANIMALS",
+    "DESCRIPTION": "Most common animals"
+  },
+  {
+    "WORD": "PIZZA",
+    "HINT": "An Italian dish with a round flat base topped with cheese and tomato sauce.",
+    "CATEGORY": "FOOD",
+    "DESCRIPTION": "Popular food items"
+  },
+  {
+    "WORD": "BURGER",
+    "HINT": "A sandwich made of a cooked meat patty inside a bun.",
+    "CATEGORY": "FOOD",
+    "DESCRIPTION": "Popular food items"
+  },
+  {
+    "WORD": "PASTA",
+    "HINT": "Italian noodles often served with sauce.",
+    "CATEGORY": "FOOD",
+    "DESCRIPTION": "Popular food items"
+  },
+  {
+    "WORD": "SUSHI",
+    "HINT": "Japanese dish of vinegared rice with raw fish or vegetables.",
+    "CATEGORY": "FOOD",
+    "DESCRIPTION": "Popular food items"
+  },
+  {
+    "WORD": "SALAD",
+    "HINT": "A cold dish made mostly of raw vegetables.",
+    "CATEGORY": "FOOD",
+    "DESCRIPTION": "Popular food items"
+  },
+  {
+    "WORD": "TEACHER",
+    "HINT": "A person who helps students learn.",
+    "CATEGORY": "PROFESSIONS",
+    "DESCRIPTION": "Common occupations"
+  },
+  {
+    "WORD": "DOCTOR",
+    "HINT": "A medical professional who treats patients.",
+    "CATEGORY": "PROFESSIONS",
+    "DESCRIPTION": "Common occupations"
+  },
+  {
+    "WORD": "FIREMAN",
+    "HINT": "A person who fights fires and rescues people.",
+    "CATEGORY": "PROFESSIONS",
+    "DESCRIPTION": "Common occupations"
+  },
+  {
+    "WORD": "LAWYER",
+    "HINT": "A professional who practices or studies law.",
+    "CATEGORY": "PROFESSIONS",
+    "DESCRIPTION": "Common occupations"
+  },
+  {
+    "WORD": "CHEF",
+    "HINT": "A person who cooks professionally.",
+    "CATEGORY": "PROFESSIONS",
+    "DESCRIPTION": "Common occupations"
+  },
+  {
+    "WORD": "OCEAN",
+    "HINT": "A large body of saltwater covering most of Earth.",
+    "CATEGORY": "NATURE",
+    "DESCRIPTION": "Natural places and landscapes"
+  },
+  {
+    "WORD": "FOREST",
+    "HINT": "A large area covered chiefly with trees.",
+    "CATEGORY": "NATURE",
+    "DESCRIPTION": "Natural places and landscapes"
+  },
+  {
+    "WORD": "MOUNTAIN",
+    "HINT": "A large natural elevation of the earth's surface.",
+    "CATEGORY": "NATURE",
+    "DESCRIPTION": "Natural places and landscapes"
+  },
+  {
+    "WORD": "RIVER",
+    "HINT": "A large natural stream of water flowing in a channel to the sea.",
+    "CATEGORY": "NATURE",
+    "DESCRIPTION": "Natural places and landscapes"
+  },
+  {
+    "WORD": "DESERT",
+    "HINT": "A dry, barren area of land with little rainfall.",
+    "CATEGORY": "NATURE",
+    "DESCRIPTION": "Natural places and landscapes"
+  },
+  {
+    "WORD": "LAPTOP",
+    "HINT": "A portable personal computer.",
+    "CATEGORY": "OBJECTS",
+    "DESCRIPTION": "Common tools and items"
+  },
+  {
+    "WORD": "CAMERA",
+    "HINT": "A device used to take photographs.",
+    "CATEGORY": "OBJECTS",
+    "DESCRIPTION": "Common tools and items"
+  },
+  {
+    "WORD": "BICYCLE",
+    "HINT": "A vehicle with two wheels that you pedal to move.",
+    "CATEGORY": "OBJECTS",
+    "DESCRIPTION": "Common tools and items"
+  },
+  {
+    "WORD": "TELEPHONE",
+    "HINT": "A device used to communicate by voice over distances.",
+    "CATEGORY": "OBJECTS",
+    "DESCRIPTION": "Common tools and items"
+  },
+  {
+    "WORD": "UMBRELLA",
+    "HINT": "A device used to protect from rain.",
+    "CATEGORY": "OBJECTS",
+    "DESCRIPTION": "Common tools and items"
+  },
+  {
+    "WORD": "GUITAR",
+    "HINT": "A string instrument played by strumming or plucking.",
+    "CATEGORY": "OBJECTS",
+    "DESCRIPTION": "Common tools and items"
+  },
+  {
+    "WORD": "PANDA",
+    "HINT": "A black and white bear native to China that eats bamboo.",
+    "CATEGORY": "ANIMALS",
+    "DESCRIPTION": "Most common animals"
+  },
+  {
+    "WORD": "CAMEL",
+    "HINT": "An animal adapted to live in the desert, with humps storing fat.",
+    "CATEGORY": "ANIMALS",
+    "DESCRIPTION": "Most common animals"
+  },
+  {
+    "WORD": "SALMON",
+    "HINT": "A fish known for migrating upstream to spawn.",
+    "CATEGORY": "ANIMALS",
+    "DESCRIPTION": "Most common animals"
+  },
+  {
+    "WORD": "STRAWBERRY",
+    "HINT": "A red fruit with tiny seeds on its surface.",
+    "CATEGORY": "FOOD",
+    "DESCRIPTION": "Popular food items"
+  },
+  {
+    "WORD": "CHEESE",
+    "HINT": "A dairy product made from curdled or cultured milk.",
+    "CATEGORY": "FOOD",
+    "DESCRIPTION": "Popular food items"
+  },
+  {
+    "WORD": "WAITER",
+    "HINT": "A person who serves food and drinks in a restaurant.",
+    "CATEGORY": "PROFESSIONS",
+    "DESCRIPTION": "Common occupations"
+  },
+  {
+    "WORD": "ENGINEER",
+    "HINT": "A professional who designs and builds machines or structures.",
+    "CATEGORY": "PROFESSIONS",
+    "DESCRIPTION": "Common occupations"
+  },
+  {
+    "WORD": "JOURNALIST",
+    "HINT": "A person who reports news for newspapers or TV.",
+    "CATEGORY": "PROFESSIONS",
+    "DESCRIPTION": "Common occupations"
+  },
+  {
+    "WORD": "VALLEY",
+    "HINT": "A low area of land between hills or mountains.",
+    "CATEGORY": "NATURE",
+    "DESCRIPTION": "Natural places and landscapes"
+  },
+  {
+    "WORD": "WATERFALL",
+    "HINT": "Water flowing over a vertical drop in a river.",
+    "CATEGORY": "NATURE",
+    "DESCRIPTION": "Natural places and landscapes"
+  },
+  {
+    "WORD": "BACKPACK",
+    "HINT": "A bag carried on your back for carrying things.",
+    "CATEGORY": "OBJECTS",
+    "DESCRIPTION": "Common tools and items"
+  },
+  {
+    "WORD": "MICROSCOPE",
+    "HINT": "An instrument used to see tiny objects up close.",
+    "CATEGORY": "OBJECTS",
+    "DESCRIPTION": "Common tools and items"
+  },
+  {
+    "WORD": "TELESCOPE",
+    "HINT": "A device used to observe distant objects like stars.",
+    "CATEGORY": "OBJECTS",
+    "DESCRIPTION": "Common tools and items"
+  },
+  {
+    "WORD": "BUTTERFLY",
+    "HINT": "An insect with large colorful wings.",
+    "CATEGORY": "ANIMALS",
+    "DESCRIPTION": "Most common animals"
+  },
+  {
+    "WORD": "RABBIT",
+    "HINT": "A small mammal with long ears that hops.",
+    "CATEGORY": "ANIMALS",
+    "DESCRIPTION": "Most common animals"
+  },
+  {
+    "WORD": "APPLE",
+    "HINT": "A common round fruit with red, green, or yellow skin.",
+    "CATEGORY": "FOOD",
+    "DESCRIPTION": "Popular food items"
   },
   {
     "WORD": "BANANA",
-    "HINT": "Término coloquial para referirse a alguien que actúa de manera poco inteligente o ingenua.",
-    "CATEGORY": "PERSONAS",
-    "DESCRIPTION": ""
+    "HINT": "A long curved fruit with yellow skin.",
+    "CATEGORY": "FOOD",
+    "DESCRIPTION": "Popular food items"
   },
   {
-    "WORD": "BANCAR",
-    "HINT": "Expresión que significa apoyar a alguien en una situación difícil o esperar a que alguien llegue.",
-    "CATEGORY": "EXPRESIONES",
-    "DESCRIPTION": ""
+    "WORD": "PHOTOGRAPHER",
+    "HINT": "A person who takes photographs professionally.",
+    "CATEGORY": "PROFESSIONS",
+    "DESCRIPTION": "Common occupations"
   },
   {
-    "WORD": "Término utilizado para referirse a un grupo de amigos o conocidos que suelen reunirse y compartir actividades.",
-    "HINT": "Grupo de amigos",
-    "CATEGORY": "PERSONAS",
-    "DESCRIPTION": ""
+    "WORD": "SCIENTIST",
+    "HINT": "A person who studies or practices science.",
+    "CATEGORY": "PROFESSIONS",
+    "DESCRIPTION": "Common occupations"
   },
   {
-    "WORD": "BASUREAR",
-    "HINT": "Acción de hablar mal de alguien o tratarlo con desdén, generalmente de manera burlona o despectiva.",
-    "CATEGORY": "VERBOS",
-    "DESCRIPTION": ""
+    "WORD": "GLACIER",
+    "HINT": "A slowly moving mass of ice formed by snow accumulation.",
+    "CATEGORY": "NATURE",
+    "DESCRIPTION": "Natural places and landscapes"
   },
   {
-    "WORD": "BICHICOME",
-    "HINT": "Término utilizado para referirse a una persona sin hogar o que vive en condiciones precarias en la calle.",
-    "CATEGORY": "CIUDAD Y TRABAJO",
-    "DESCRIPTION": ""
+    "WORD": "ISLAND",
+    "HINT": "A piece of land surrounded by water.",
+    "CATEGORY": "NATURE",
+    "DESCRIPTION": "Natural places and landscapes"
   },
   {
-    "WORD": "BIFE",
-    "HINT": "Bofetada, cachetada",
-    "CATEGORY": "EXPRESIONES",
-        "DESCRIPTION": ""
-
-  },
-  {
-    "WORD": "BIROME",
-    "HINT": "bolígrafo, lapicera",
-    "CATEGORY": "OBJETOS",
-        "DESCRIPTION": ""
-
-  },
-  {
-    "WORD": "BIRRA",
-    "HINT": "Cerveza",
-    "CATEGORY": "COMIDA",
-        "DESCRIPTION": ""
-
-  },
-  {
-    "WORD": "BO",
-    "HINT": "Palabra por excelencia utilizada por los uruguayos para llamar a otro uruguayo",
-    "CATEGORY": "EXPRESIONES",
-        "DESCRIPTION": ""
-
+    "WORD": "KEYBOARD",
+    "HINT": "A device with keys used to type on a computer.",
+    "CATEGORY": "OBJECTS",
+    "DESCRIPTION": "Common tools and items"
   }
 ]

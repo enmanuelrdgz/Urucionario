@@ -1,4 +1,5 @@
 // store/gameSlice.ts
+import { updateWord } from '@/db/db';
 import { Word } from '@/src/domain/types';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AppDispatch, RootState } from '../store';
@@ -113,6 +114,6 @@ export const wordGuessedThunk = () => (dispatch: AppDispatch, getState: () => Ro
   });
 
   dispatch(dataActions.loadcategories(updatedCategories));
-  //updateWord(targetWordId);
+  updateWord(targetWordId);
 
 };
