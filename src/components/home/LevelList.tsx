@@ -11,7 +11,7 @@ import {
   Text,
   View
 } from 'react-native';
-import CategoryIcon from './LevelIcon';
+import CategoryIcon from './CategoryIcon';
 
 const CategoryList = () => {
 
