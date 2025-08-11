@@ -1,5 +1,7 @@
 import { Category } from "@/src/domain/types";
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image } from "expo-image";
+import { StyleSheet, Text, View } from "react-native";
+
 
 // Mapeo de imágenes estáticas
 const categoryImages: Record<string, any> = {
