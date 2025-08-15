@@ -1,5 +1,5 @@
 // store/gameSlice.ts
-import { getCategories, initDB } from '@/db/db';
+import { getCategories, initDB } from '@/src/db/db';
 import { Category } from '@/src/domain/types';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AppDispatch } from '../store';
