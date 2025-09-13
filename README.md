@@ -1,15 +1,9 @@
-Estructura del proyecto:
+# (Work In Progress)
 
-El proyecto actualmente consiste de 3 screens:
-* HomeScreen (index)
-* winScreen
-* gameScreen
-
-El estado de la aplicacion se maneja con Redux.
-El estado esta dividido en 3 slices:
-* dataSlice
-* homeSlice
-* gameSlice
-
-dataSlice contiene un array con todas las categorias.
-homeSlice contiene la categoria seleccionada
+Video Demo:  
+## Galeria
+<div style="display: flex; gap: 10px; justify-content: center;">
+  <img src="docs/image1.jpeg" alt="Imagen 1" width="200"/>
+  <img src="docs/image2.jpeg" alt="Imagen 2" width="200"/>
+  <img src="docs/image3.jpeg" alt="Imagen 3" width="200"/>
+</div>
